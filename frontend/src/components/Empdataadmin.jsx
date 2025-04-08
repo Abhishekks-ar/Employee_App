@@ -10,14 +10,14 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import axiosInstance from "../axiosInterceptor";
+// import axiosInstance from "../axiosinterceptor";
 
 const Empdataadmin = () => {
   // const data=[{blogname:'FoodBlog',blogimg:'',blogdesc:'Food Blog'},{blogname:'TravelBlog',blogimg:'',blogdesc:'Travel Blog'},{blogname:'MovieBlog',blogimg:'',blogdesc:'Movie Blog'}]
   const [data, setData] = useState([]);
     const navigate = useNavigate();
   useEffect(() => {
-    axios
+    axiosInstance
       .get("http://localhost:3000/emp")
       .then((res) => {
         setData(res.data);
@@ -31,7 +31,7 @@ const Empdataadmin = () => {
       navigate("/addemp", { state: { val } });
     }
     function delVal(val){
-      axiosInstance.delete(`https://employ-app-server.vercel.app/delete/${val._id}`).then((res)=>{
+      axios.delete(`http://localhost:3000/emp/delete/${val._id}`).then((res)=>{
       alert("Deleted Successfully")
       setData(data.filter(item => item._id !== val._id)); 
       navigate('/admindata');
