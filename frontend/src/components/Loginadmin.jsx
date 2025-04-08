@@ -3,25 +3,26 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Typography, Button, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Loginadmin = () => {
   const [adminform, setAdminForm] = useState({
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
-  function capValue() {
+
+  function capValue(e) {
+    e.preventDefault(); 
     axios
       .post("http://localhost:3000/admin/login", adminform)
       .then((res) => {
         alert(res.data.message);
-        if (res.data) {
+        // if (res.data.token) {
+          // sessionStorage.setItem("token", res.data.token);
           navigate("/admindata");
-        }
-        // if(res.data.token){
-        //   sessionStorage.setItem('token',res.data.token)
-        //   navigate('/blogs');
         // }
       })
       .catch((err) => {
@@ -29,6 +30,7 @@ const Loginadmin = () => {
         alert("Invalid Credentials");
       });
   }
+
   return (
     <Box
       sx={{
@@ -57,13 +59,14 @@ const Loginadmin = () => {
           noValidate
           autoComplete="off"
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          onSubmit={capValue} // attach the handler here
         >
           <TextField
             label="Email"
             variant="outlined"
             fullWidth
             onChange={(e) => {
-              setForm({ ...adminform, email: e.target.value });
+              setAdminForm({ ...adminform, email: e.target.value });
             }}
           />
           <TextField
@@ -72,7 +75,7 @@ const Loginadmin = () => {
             variant="outlined"
             fullWidth
             onChange={(e) => {
-              setForm({ ...adminform, password: e.target.value });
+              setAdminForm({ ...adminform, password: e.target.value });
             }}
           />
           <Button
@@ -82,7 +85,6 @@ const Loginadmin = () => {
             color="primary"
             size="small"
             sx={{ width: "160px", alignSelf: "center" }}
-            onClick={capValue}
           >
             Login
           </Button>

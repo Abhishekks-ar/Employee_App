@@ -3,30 +3,31 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Typography, Button, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [userform, setUserForm] = useState({
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
-  function capValue() {
+
+  function capValue(e) {
+    e.preventDefault(); 
     axios
       .post("http://localhost:3000/user/login", userform)
       .then((res) => {
         alert(res.data.message);
-        // if(res.data.token){
-          // if(res.data){
-            navigate('/userdata');
-          // }
-        //   sessionStorage.setItem('token',res.data.token)
-          
+        // if (res.data.token) {
+        // sessionStorage.setItem("token", res.data.token);
+        navigate("/userdata");
         // }
       })
       .catch((err) => {
         console.log(err);
-        alert("Invalid Credentials")
+        alert("Invalid Credentials");
       });
   }
 
@@ -58,13 +59,14 @@ const Login = () => {
           noValidate
           autoComplete="off"
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          onSubmit={capValue} // attach the submit handler to the form
         >
           <TextField
             label="Email"
             variant="outlined"
             fullWidth
             onChange={(e) => {
-              setForm({ ...userform, email: e.target.value });
+              setUserForm({ ...userform, email: e.target.value });
             }}
           />
           <TextField
@@ -73,7 +75,7 @@ const Login = () => {
             variant="outlined"
             fullWidth
             onChange={(e) => {
-              setForm({ ...userform, password: e.target.value });
+              setUserForm({ ...userform, password: e.target.value });
             }}
           />
           <Button
@@ -83,7 +85,6 @@ const Login = () => {
             color="primary"
             size="small"
             sx={{ width: "160px", alignSelf: "center" }}
-            onClick={capValue}
           >
             Login
           </Button>
