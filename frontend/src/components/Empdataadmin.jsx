@@ -7,9 +7,10 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import axios from "axios";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../axiosinterceptorad";
 // import axiosInstance from "../axiosinterceptor";
 
 const Empdataadmin = () => {
@@ -31,7 +32,7 @@ const Empdataadmin = () => {
       navigate("/addemp", { state: { val } });
     }
     function delVal(val){
-      axios.delete(`http://localhost:3000/emp/delete/${val._id}`).then((res)=>{
+      axiosInstance.delete(`http://localhost:3000/emp/delete/${val._id}`).then((res)=>{
       alert("Deleted Successfully")
       setData(data.filter(item => item._id !== val._id)); 
       navigate('/admindata');

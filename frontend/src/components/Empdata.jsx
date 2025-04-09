@@ -7,8 +7,9 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import axios from "axios";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axiosInstance from "../axiosinterceptorus";
 //   import { useNavigate } from "react-router-dom";
 // import axiosInstance from "../axiosInterceptor";
 
@@ -17,8 +18,8 @@ const Empdataadmin = () => {
   const [data, setData] = useState([]);
   //   const navigate = useNavigate();
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/emp")
+    axiosInstance
+      .get("http://localhost:3000/emp/get")
       .then((res) => {
         setData(res.data);
       })

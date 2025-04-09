@@ -20,10 +20,10 @@ const Login = () => {
       .post("http://localhost:3000/user/login", userform)
       .then((res) => {
         alert(res.data.message);
-        // if (res.data.token) {
-        // sessionStorage.setItem("token", res.data.token);
+        if (res.data.token) {
+        sessionStorage.setItem("tokenus", res.data.token);
         navigate("/userdata");
-        // }
+        }
       })
       .catch((err) => {
         console.log(err);

@@ -20,10 +20,10 @@ const Loginadmin = () => {
       .post("http://localhost:3000/admin/login", adminform)
       .then((res) => {
         alert(res.data.message);
-        // if (res.data.token) {
-          // sessionStorage.setItem("token", res.data.token);
+        if (res.data.token) {
+          sessionStorage.setItem("tokenad", res.data.token);
           navigate("/admindata");
-        // }
+        }
       })
       .catch((err) => {
         console.log(err);

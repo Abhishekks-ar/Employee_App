@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-// const jwt =require('jsonwebtoken');
+const jwt =require('jsonwebtoken');
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
@@ -12,11 +12,11 @@ router.post('/login', async (req, res) => {
       res.status(404).send("admin not found");
     } else {
       if (admin.password == req.body.password) {
-        // const payload={email:admin.email,password:admin.password}
-        // const token=jwt.sign(payload,'blogApp');
+        const payload={email:admin.email,password:admin.password}
+        const tokenad=jwt.sign(payload,'emptokenad');
 
         res.status(200).send({message:'Admin Login Successful',
-          // token:token
+          token:tokenad
 
         })
       } else {
